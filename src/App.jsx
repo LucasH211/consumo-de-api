@@ -12,6 +12,7 @@ function App() {
   const [error, setError] = useState(false)
   const [personagem, setPersonagem] = useState({})
   const [pokemon, setPokemon] = useState({})
+  const [filme, setFilme] = useState({})
 
   useEffect( () => {
     const getData = async () =>{
@@ -22,6 +23,8 @@ function App() {
         setPersonagem(response2.data);
         const response3 = await axios.get("https://pokeapi.co/api/v2/pokemon/charizard");
         setPokemon(response3.data);
+        const response4 = await axios.get("https://www.omdbapi.com/?i=tt3896198&apikey=93554fd1");
+        setFilme(response4.data);
         console.log("resposta do get:" + response3.data);
         setLoading(false);
       }
@@ -56,6 +59,13 @@ function App() {
           <h1>Nome: {pokemon.name}</h1>
           <img src={pokemon.sprites.front_default}></img>
           <h1>Tipos: {pokemon.types[0].type.name}, {pokemon.types[1].type.name}</h1>
+        </div>
+        <div>
+          <h1>{filme.Title}</h1>
+          <h2>{filme.Awards}</h2>
+          <h2>{filme.Ratings[0].Source}:{filme.Ratings[0].Value}</h2>
+          <h2>{filme.Ratings[1].Source}:{filme.Ratings[1].Value}</h2>
+          <h2>{filme.Ratings[2].Source}:{filme.Ratings[2].Value}</h2>
         </div>
       </section>
 
